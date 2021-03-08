@@ -13,6 +13,8 @@ Citizen.CreateThread(function()
         SetDiscordRichPresenceAssetText('Playing on a FiveM Server') --This is the text that will show when hovering over the image above
         SetDiscordRichPresenceAssetSmall('second') --This is a sacond image that is a bit smaller than the big one a few rows above
         SetDiscordRichPresenceAssetSmallText("Health: "..(GetEntityHealth(player)-100)) --This shows the player's health when hovering over picture above
+        SetDiscordRichPresenceAction(0, "Connect", "fivem://connect/80.195.75.45:30120") --First Button on RPC, shows on side. Modify text and URL to your liking
+        SetDiscordRichPresenceAction(1, "Website", "https://site.hypnoticsiege.codes/hypertonic.html") --Second Button RPC, shows under one above
 
 
         --Some information here to get player's location, vehicle, name, ID, and some more
