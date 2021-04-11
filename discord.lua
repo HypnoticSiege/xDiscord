@@ -6,7 +6,6 @@ Citizen.CreateThread(function()
     while true do
         local player = GetPlayerPed(-1)
 
-
         --Discord Configuration (CONFIGURE TO YOUR NEEDS)
         SetDiscordAppId('781164218661339176') --Make an app here https://discord.com/developers/applications
         SetDiscordRichPresenceAsset('main') --This is the big pictutre that will show you your profile
