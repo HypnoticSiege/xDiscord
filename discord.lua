@@ -2,6 +2,12 @@
 --This Rich Presence will not show the vehicle type in order to not leak any spawncodes you might want private as I see that as a problem on some servers
 --This script will also update every 1 SECOND, change the Citizen.Wait times if you would like it more delayed
 --If you need any help please contact me on Discord (HypnoticSiege#2909)
+
+--Install Istructions
+--Configure the **Discord Configuration** part of this code which you can find at line *#*
+--Go to Rich Presence and drag all files from the /Assets Folder into the image assets. This may take up to 10 minutes to cache to Discord
+--Done!
+
 Citizen.CreateThread(function()
     while true do
         local Online = GetActivePlayers()
