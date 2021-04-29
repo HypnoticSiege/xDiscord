@@ -37,30 +37,88 @@ Citizen.CreateThread(function()
         if StreetHash ~= nil then
             StreetName = GetStreetNameFromHashKey(StreetHash)
 
-            --Player Walking Status
             if IsPedOnFoot(PlayerPedId()) and not IsEntityInWater(PlayerPedId()) then
 
+                --Player Sprint Status
 				if IsPedSprinting(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is sprinting down "..StreetName)
                     SetDiscordRichPresenceAssetSmall('run')
                     SetDiscordRichPresenceAssetSmallText("Sprining on "..StreetName)
 
+                --PLayer Running Status
 				elseif IsPedRunning(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is running down "..StreetName)
                     SetDiscordRichPresenceAssetSmall('run')
                     SetDiscordRichPresenceAssetSmallText("Running down "..StreetName)
 
+                --Player Walking Status
 				elseif IsPedWalking(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is walking down "..StreetName)
                     SetDiscordRichPresenceAssetSmall('walk')
                     SetDiscordRichPresenceAssetSmallText("Walking down "..StreetName)
-                    
+                
+                --Player Standing Status
 				elseif IsPedStill(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is standing on "..StreetName)
                     SetDiscordRichPresenceAssetSmall('stand')
                     SetDiscordRichPresenceAssetSmallText("Standing on "..StreetName)
+
+
+                --Player Dead Status
+				elseif IsPedDead(PlayerPedId()) then
+					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is Dead near "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('dead')
+                    SetDiscordRichPresenceAssetSmallText("Dead Near "..StreetName)
+
                 end
                 
+                
+                --Player Vehicle Status
+				if GetVehiclePedIsUsing(PlayerPedId()) ~= nil and not IsPedInAnyHeli(PlayerPedId()) and not IsPedInAnyPlane(PlayerPedId()) and not IsPedOnFoot(PlayerPedId()) and not IsPedInAnySub(PlayerPedId()) and not IsPedInAnyBoat(PlayerPedId()) then
+                    local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
+                    if MPH > 0 then
+                    SetRichPresence("ID: "..pId.." | "..pName.." is on "..StreetName.." going "..MPH.."MPH")
+                    SetDiscordRichPresenceAssetSmall('vehicle')
+                    SetDiscordRichPresenceAssetSmallText("Driving a "..VehClass.. "Vehicle")
+
+                --PLayer Boat Staus
+				elseif IsPedInAnyBoat(PlayerPedId()) then
+					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is on a Boat near "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('boat')
+                    SetDiscordRichPresenceAssetSmallText("Sailing Near "..StreetName)
+
+                --Player Sub Status
+				elseif IsPedInAnySub(PlayerPedId()) then
+					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is in a Submarine near "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('sub')
+                    SetDiscordRichPresenceAssetSmallText("In a Sub near "..StreetName)
+                
+                --Player Standing Status
+				elseif IsPedStill(PlayerPedId()) then
+					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is standing on "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('stand')
+                    SetDiscordRichPresenceAssetSmallText("Standing on "..StreetName)
+
+
+                --Player Dead Status
+				elseif IsPedDead(PlayerPedId()) then
+					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is Dead near "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('dead')
+                    SetDiscordRichPresenceAssetSmallText("Dead Near "..StreetName)
+
+                 --Player Heli Status
+				elseif IsPedinAnyHeli(PlayerPedId()) then
+					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is flying a Helicopter Near "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('heli')
+                    SetDiscordRichPresenceAssetSmallText("In a Heli near "..StreetName)
+                
+                --Player Plane Status
+                elseif IsPedinAnyPlane(PlayerPedId()) then
+					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is flying a Plane Near "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('heli')
+                    SetDiscordRichPresenceAssetSmallText("In a Plane near "..StreetName)
+                end
+
                 --Player Vehicle Status
             elseif GetVehiclePedIsUsing(PlayerPedId()) ~= nil and not IsPedInAnyHeli(PlayerPedId()) and not IsPedInAnyPlane(PlayerPedId()) and not IsPedOnFoot(PlayerPedId()) and not IsPedInAnySub(PlayerPedId()) and not IsPedInAnyBoat(PlayerPedId()) then
                 local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
