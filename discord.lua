@@ -17,7 +17,7 @@ Citizen.CreateThread(function()
         SetDiscordRichPresenceAssetSmallText("Health: "..(GetEntityHealth(player)-100)) --This shows the player's health when hovering over picture above
         
         SetDiscordRichPresenceAction(0, "Connect", "fivem://connect/80.195.75.45:30120") --First Button on RPC, shows on side. Modify text and URL to your liking
-        SetDiscordRichPresenceAction(1, "Website", "https://site.hypnoticsiege.codes/hypertonic.html") --Second Button RPC, shows under one above
+        SetDiscordRichPresenceAction(1, "Discord Bot", "https://hypnoticsiege.codes/hypertonic") --Second Button RPC, shows under one above
 
 
         --Some information here to get player's location, vehicle, name, ID, and some more
@@ -36,7 +36,7 @@ Citizen.CreateThread(function()
 
 				if IsPedSprinting(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is sprinting down "..StreetName)
-                    SetDiscordRichPresenceAssetSmall('sprint')
+                    SetDiscordRichPresenceAssetSmall('run')
                     SetDiscordRichPresenceAssetSmallText("Sprining on "..StreetName)
 
 				elseif IsPedRunning(PlayerPedId()) then
