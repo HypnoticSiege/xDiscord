@@ -23,8 +23,6 @@ Citizen.CreateThread(function()
         Citizen.Wait(1000)
         if StreetHash ~= nil then
             StreetName = GetStreetNameFromHashKey(StreetHash)
-
-            --Player Walking Status
             if IsPedOnFoot(PlayerPedId()) and not IsEntityInWater(PlayerPedId()) then
                 if IsPedDeadOrDying(PlayerPedId()) then
                     SetRichPresence("ID: " ..pId.. " | " ..pName.. " is dead near "..StreetName)
@@ -57,13 +55,22 @@ Citizen.CreateThread(function()
                     SetDiscordRichPresenceAssetSmallText("Going "..MPH.."MPH") 
                 end
 
-                --Player Flying Status
-            elseif IsPedInAnyHeli(PlayerPedId()) or IsPedInAnyPlane(PlayerPedId()) then
+                --Flying Heli Status
+            elseif IsPedInAnyHeli(PlayerPedId()) then
+                local Knots = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
                 if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 1.0 then
-                    local Knots = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.316936)
+                    SetRichPresence("ID: "..pId.." | "..pName.." is flying above "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('heli')
+                    SetDiscordRichPresenceAssetSmallText("Flying at "..Knots.." Knots")
+                end
+--
+                --Flying Plane Status
+            elseif IsPedInAnyPlane(PlayerPedId()) then
+                local Knots = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
+                if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 1.0 then
                     SetRichPresence("ID: "..pId.." | "..pName.." is flying above "..StreetName)
                     SetDiscordRichPresenceAssetSmall('plane')
-                    SetDiscordRichPresenceAssetSmallText("Going "..Knots.." Knots") 
+                    SetDiscordRichPresenceAssetSmallText("Flying at "..Knots.." Knots")
                 end
                 
                 --Player Swimming Status
