@@ -1,4 +1,4 @@
---Made by HypnoticSiege (Some things from sadboilogan's Rich Presence https://github.com/sadboilogan/FiveM-RichPresence) and Health status thanks to Jeva's RPC
+--Made by HypnoticSiege (Some things from sadboilogan's Rich Presence https://github.com/sadboilogan/FiveM-RichPresence)
 --This Rich Presence will not show the vehicle type in order to not leak any spawncodes you might want private as I see that as a problem on some servers
 --This script will also update every 1 SECOND, change the Citizen.Wait times if you would like it more delayed
 --If you need any help please contact me on Discord (HypnoticSiege#2909)
@@ -10,10 +10,8 @@ Citizen.CreateThread(function()
         SetDiscordAppId('781164218661339176') --Make an app here https://discord.com/developers/applications
         SetDiscordRichPresenceAsset('main') --This is the big pictutre that will show you your profile
         SetDiscordRichPresenceAssetText('Playing on a FiveM Server') --This is the text that will show when hovering over the image above
-        --SetDiscordRichPresenceAssetSmall('second') --This is a sacond image that is a bit smaller than the big one a few rows above
-        SetDiscordRichPresenceAssetSmallText("Health: "..(GetEntityHealth(player)-100)) --This shows the player's health when hovering over picture above
         SetDiscordRichPresenceAction(0, "Connect", "fivem://connect/80.195.75.45:30120") --First Button on RPC, shows on side. Modify text and URL to your liking
-        SetDiscordRichPresenceAction(1, "Website", "https://site.hypnoticsiege.codes/hypertonic.html") --Second Button RPC, shows under one above
+        SetDiscordRichPresenceAction(1, "Website", "https://hypnoticsiege.codes") --Second Button RPC, shows under one above
 
 
         --Some information here to get player's location, vehicle, name, ID, and some more
@@ -31,15 +29,19 @@ Citizen.CreateThread(function()
 				if IsPedSprinting(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is sprinting down "..StreetName)
                     SetDiscordRichPresenceAssetSmall('run')
+                    SetDiscordRichPresenceAssetSmallText("Sprinting Down "..StreetName) 
 				elseif IsPedRunning(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is running down "..StreetName)
                     SetDiscordRichPresenceAssetSmall('run')
+                    SetDiscordRichPresenceAssetSmallText("Running Down "..StreetName) 
 				elseif IsPedWalking(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is walking down "..StreetName)
                     SetDiscordRichPresenceAssetSmall('walk')
+                    SetDiscordRichPresenceAssetSmallText("Walking Down "..StreetName) 
 				elseif IsPedStill(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is standing on "..StreetName)
                     SetDiscordRichPresenceAssetSmall('walk')
+                    SetDiscordRichPresenceAssetSmallText("Standing On "..StreetName) 
                 end
                 
                 --Player Vehicle Status
@@ -48,19 +50,23 @@ Citizen.CreateThread(function()
                 if MPH > 0 then
                     SetRichPresence("ID: "..pId.." | "..pName.." is on "..StreetName.." going "..MPH.."MPH")
                     SetDiscordRichPresenceAssetSmall('vehicle')
+                    SetDiscordRichPresenceAssetSmallText("Going "..MPH.."MPH") 
                 end
 
                 --Player Flying Status
             elseif IsPedInAnyHeli(PlayerPedId()) or IsPedInAnyPlane(PlayerPedId()) then
-                if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 5.0 then
+                if IsEntityInAir(GetVehiclePedIsUsing(PlayerPedId())) or GetEntityHeightAboveGround(GetVehiclePedIsUsing(PlayerPedId())) > 1.0 then
+                    local Knots = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.316936)
                     SetRichPresence("ID: "..pId.." | "..pName.." is flying above "..StreetName)
                     SetDiscordRichPresenceAssetSmall('plane')
+                    SetDiscordRichPresenceAssetSmallText("Going "..Knots.." Knots") 
                 end
                 
                 --Player Swimming Status
             elseif IsEntityInWater(PlayerPedId()) then
-                SetRichPresence("ID: "..pId.." | "..pName.." is swimming around "..StreetName)
+                SetRichPresence("ID: "..pId.." | "..pName.." is swimming near "..StreetName)
                 SetDiscordRichPresenceAssetSmall('swim')
+                SetDiscordRichPresenceAssetSmallText("Swimming near "..StreetName)
             end
         end
     end
