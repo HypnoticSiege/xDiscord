@@ -26,7 +26,11 @@ Citizen.CreateThread(function()
 
             --Player Walking Status
             if IsPedOnFoot(PlayerPedId()) and not IsEntityInWater(PlayerPedId()) then
-				if IsPedSprinting(PlayerPedId()) then
+                if IsPedDeadOrDying(PlayerPedId()) then
+                    SetRichPresence("ID: " ..pId.. " | " ..pName.. " is dead near "..StreetName)
+                    SetDiscordRichPresenceAssetSmall('dead')
+                    SetDiscordRichPresenceAssetSmallText("Dead Near "..StreetName) 
+				elseif IsPedSprinting(PlayerPedId()) then
 					SetRichPresence("ID: " ..pId.. " | " ..pName.. " is sprinting down "..StreetName)
                     SetDiscordRichPresenceAssetSmall('run')
                     SetDiscordRichPresenceAssetSmallText("Sprinting Down "..StreetName) 
@@ -43,7 +47,7 @@ Citizen.CreateThread(function()
                     SetDiscordRichPresenceAssetSmall('walk')
                     SetDiscordRichPresenceAssetSmallText("Standing On "..StreetName) 
                 end
-                
+
                 --Player Vehicle Status
             elseif GetVehiclePedIsUsing(PlayerPedId()) ~= nil and not IsPedInAnyHeli(PlayerPedId()) and not IsPedInAnyPlane(PlayerPedId()) and not IsPedOnFoot(PlayerPedId()) and not IsPedInAnySub(PlayerPedId()) and not IsPedInAnyBoat(PlayerPedId()) then
                 local MPH = math.ceil(GetEntitySpeed(GetVehiclePedIsUsing(PlayerPedId())) * 2.236936)
